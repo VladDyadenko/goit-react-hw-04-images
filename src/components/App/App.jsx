@@ -67,6 +67,9 @@ function App() {
 
   const closeModal = e => {
     setShowModal(false);
+    setCurrentImageDescription('');
+    setCurrentImag('');
+
   };
 
   const addSearch = query => {
