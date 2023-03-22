@@ -6,21 +6,15 @@ import { FaSistrix } from 'react-icons/fa';
 
 import { FormBox, FormBtn, FormElement, FormInput } from './Searchbar.styled';
 
-
-
-
- function Searchbar({onSubmit}) {
-
+function Searchbar({ onSubmit }) {
   const [searchValue, setSearchValue] = useState('');
 
- const handlInputChange = e => {
-  setSearchValue( e.currentTarget.value );
+  const handlInputChange = e => {
+    setSearchValue(e.currentTarget.value);
   };
 
   const dataSearch = e => {
     e.preventDefault();
-
-    
 
     if (searchValue.trim() === '') {
       toast.error('Enter data to search!');
@@ -48,11 +42,10 @@ import { FormBox, FormBtn, FormElement, FormInput } from './Searchbar.styled';
       </FormElement>
     </FormBox>
   );
-  
-};
+}
 
 Searchbar.propTypes = {
-      onSubmit: PropTypes.func.isRequired,
-    };
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;

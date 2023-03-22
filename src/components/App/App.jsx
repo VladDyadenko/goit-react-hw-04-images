@@ -23,9 +23,6 @@ function App() {
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log(images)
- 
-
   const BASE_URL = 'https://pixabay.com/api/?';
   const API_KEY = 'key=33086348-7f53cf98727ae5d390ed7e65d';
   const filterRequest =
@@ -37,10 +34,10 @@ function App() {
     }
 
     searchOnQuery();
-    
+
     function searchOnQuery() {
       setVisible(true);
-     
+
       axios
         .get(
           `${BASE_URL}${API_KEY}&q=${valueForSearch}${filterRequest}&page=${page}`
@@ -66,9 +63,6 @@ function App() {
         })
         .finally(() => setVisible(false));
     }
-    
-    
-    
   }, [page, valueForSearch]);
 
   const closeModal = e => {
@@ -83,8 +77,6 @@ function App() {
     setValueForSearch(query);
     setImages([]);
     setPage(1);
-    
-
   };
 
   const openModal = e => {
@@ -111,7 +103,9 @@ function App() {
         <ImageGallery images={images} openModal={openModal} />
       )}
       {visible && <Loader />}
-      {(imagesOnPage >= 12 && imagesOnPage < totalHits) && <Button handlBtnNewPage={handlBtnNewPage} />}
+      {imagesOnPage >= 12 && imagesOnPage < totalHits && (
+        <Button handlBtnNewPage={handlBtnNewPage} />
+      )}
       {showModal && (
         <Modal
           currentImag={currentImag}
@@ -125,5 +119,3 @@ function App() {
 }
 
 export default App;
-
-// status{'idle', 'pending', 'rejected', 'resolved'}
