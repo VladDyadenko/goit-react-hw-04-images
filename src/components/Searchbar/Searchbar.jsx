@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
@@ -6,24 +6,21 @@ import { FaSistrix } from 'react-icons/fa';
 
 import { FormBox, FormBtn, FormElement, FormInput } from './Searchbar.styled';
 
-class Searchbar extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+
+
+
+ function Searchbar({onSubmit}) {
+
+  const [searchValue, setSearchValue] = useState('');
+
+ const handlInputChange = e => {
+  setSearchValue( e.currentTarget.value );
   };
 
-  state = {
-    searchValue: '',
-  };
-
-  handlInputChange = e => {
-    this.setState({ searchValue: e.currentTarget.value });
-  };
-
-  handleSubmit = e => {
+  const dataSearch = e => {
     e.preventDefault();
 
-    const { searchValue } = this.state;
-    const { onSubmit } = this.props;
+    
 
     if (searchValue.trim() === '') {
       toast.error('Enter data to search!');
@@ -33,26 +30,29 @@ class Searchbar extends Component {
     onSubmit(searchValue);
   };
 
-  render() {
-    return (
-      <FormBox>
-        <FormElement onSubmit={this.handleSubmit}>
-          <FormBtn type="submit">
-            <FaSistrix size={20}></FaSistrix>
-          </FormBtn>
+  return (
+    <FormBox>
+      <FormElement onSubmit={dataSearch}>
+        <FormBtn type="submit">
+          <FaSistrix size={20}></FaSistrix>
+        </FormBtn>
 
-          <FormInput
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={this.handlInputChange}
-            value={this.searchValue}
-          />
-        </FormElement>
-      </FormBox>
-    );
-  }
-}
+        <FormInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={handlInputChange}
+          value={searchValue}
+        />
+      </FormElement>
+    </FormBox>
+  );
+  
+};
+
+Searchbar.propTypes = {
+      onSubmit: PropTypes.func.isRequired,
+    };
 
 export default Searchbar;

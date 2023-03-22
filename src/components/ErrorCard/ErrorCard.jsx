@@ -1,6 +1,6 @@
 import { ErrorInfo, ErrorTitle } from './ErrorCard.styled';
 
-const ErrorCard = ({ error }) => {
+const ErrorCard = ({ error: { error } }) => {
   return (
     <>
       <ErrorTitle>Error</ErrorTitle>

@@ -1,6 +1,6 @@
 import { BallTriangle } from 'react-loader-spinner';
 
-const loader = () => {
+const Loader = () => {
   return (
     <>
       <BallTriangle
@@ -12,4 +12,4 @@ const loader = () => {
   );
 };
 
-export default loader;
+export default Loader;
