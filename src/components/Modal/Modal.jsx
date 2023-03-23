@@ -8,32 +8,25 @@ const modalRoot = document.querySelector('#modal-root');
 
 const Modal = ({ onClose, currentImag, currentImageDescription }) => {
   useEffect(() => {
-    window.addEventListener('keydown', e => {
+    const handleCloseModalEsc = e => {
       if (e.code === 'Escape') {
         onClose();
       }
-    });
-
-    window.addEventListener('click', e => {
+    };
+    const handleCloseModalBackdrop = e => {
       if (e.target.nodeName !== 'IMG') {
         onClose();
       }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    };
+    console.log('on');
+    window.addEventListener('keydown', handleCloseModalEsc);
+    window.addEventListener('click', handleCloseModalBackdrop);
 
-  useEffect(() => {
-    window.addEventListener('keydown', e => {
-      if (e.code === 'Escape') {
-        onClose();
-      }
-    });
-
-    window.addEventListener('click', e => {
-      if (e.target.nodeName !== 'IMG') {
-        onClose();
-      }
-    });
+    return () => {
+      console.log('remove');
+      window.removeEventListener('keydown', handleCloseModalEsc);
+      window.removeEventListener('click', handleCloseModalBackdrop);
+    };
   }, [onClose]);
 
   return createPortal(
