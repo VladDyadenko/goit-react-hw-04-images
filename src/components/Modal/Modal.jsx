@@ -1,21 +1,13 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Container, ImgModal, Overlay } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-class Modal extends Component {
-  static propTypes = {
-    onClose: PropTypes.func.isRequired,
-    currentImag: PropTypes.string.isRequired,
-    currentImageDescription: PropTypes.string.isRequired,
-  };
-
-  componentDidMount() {
-    const { onClose } = this.props;
-
+const Modal = ({ onClose, currentImag, currentImageDescription }) => {
+  useEffect(() => {
     window.addEventListener('keydown', e => {
       if (e.code === 'Escape') {
         onClose();
@@ -27,35 +19,37 @@ class Modal extends Component {
         onClose();
       }
     });
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentWillUnmount() {
-    const { onClose } = this.props;
-
-    window.removeEventListener('keydown', e => {
+  useEffect(() => {
+    window.addEventListener('keydown', e => {
       if (e.code === 'Escape') {
         onClose();
       }
     });
-    window.removeEventListener('click', e => {
+
+    window.addEventListener('click', e => {
       if (e.target.nodeName !== 'IMG') {
         onClose();
       }
     });
-  }
+  }, [onClose]);
 
-  render() {
-    const { currentImag, currentImageDescription } = this.props;
-
-    return createPortal(
-      <Overlay>
-        <Container>
-          <ImgModal src={currentImag} alt={currentImageDescription} />
-        </Container>
-      </Overlay>,
-      modalRoot
-    );
-  }
-}
+  return createPortal(
+    <Overlay>
+      <Container>
+        <ImgModal src={currentImag} alt={currentImageDescription} />
+      </Container>
+    </Overlay>,
+    modalRoot
+  );
+};
 
 export default Modal;
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  currentImag: PropTypes.string.isRequired,
+  currentImageDescription: PropTypes.string.isRequired,
+};
