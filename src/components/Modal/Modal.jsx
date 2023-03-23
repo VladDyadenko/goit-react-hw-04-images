@@ -18,12 +18,11 @@ const Modal = ({ onClose, currentImag, currentImageDescription }) => {
         onClose();
       }
     };
-    console.log('on');
+
     window.addEventListener('keydown', handleCloseModalEsc);
     window.addEventListener('click', handleCloseModalBackdrop);
 
     return () => {
-      console.log('remove');
       window.removeEventListener('keydown', handleCloseModalEsc);
       window.removeEventListener('click', handleCloseModalBackdrop);
     };
